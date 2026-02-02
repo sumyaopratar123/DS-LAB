@@ -81,14 +81,6 @@ int part(int a[], int low, int high) {
     return i+1;
 }
 
-void quickSort(int a[], int low, int high, int n) {
-    if(low<high) {
-        int p=part(a,low,high);
-        print(a,n);
-        quickSort(a,low,p-1,n);
-        quickSort(a,p+1,high,n);
-    }
-}
 
 int main() {
     int n,ch;
@@ -105,7 +97,6 @@ int main() {
         cout<<"2 Selection Sort\n";
         cout<<"3 Insertion Sort\n";
         cout<<"4 Merge Sort\n";
-        cout<<"5 Quick Sort\n";
         cout<<"0 Exit\n";
         cout<<"Enter choice: ";
         cin>>ch;
@@ -115,7 +106,6 @@ int main() {
             case 2: selection(a,n); break;
             case 3: insertion(a,n); break;
             case 4: mergeSort(a,0,n-1,n); break;
-            case 5: quickSort(a,0,n-1,n); break;
         }
 
         if(ch!=0) {
@@ -127,4 +117,3 @@ int main() {
 
     return 0;
 }
-
