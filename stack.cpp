@@ -1,75 +1,98 @@
 #include <iostream>
 using namespace std;
-int stack[5];
+
+int maxSize;
+int *stack;
 int top = -1;
 
-void push() {
-int n;
-if (top == 4) {
-cout << "Stack Overflow\n";
-} else {
-cout << "Enter element: ";
-cin >> n;
-top++;
-stack[top] = n;
-cout << "Element inserted\n";
+bool isFull() {
+     urn top == maxSize - 1;
+}
+
+bool isEmpty() {
+    return top == -1;
+}
+
+void push(int value) {
+    if (isFull()) {
+        cout << "\n[!] Stack Overflow! Cannot add " << value << endl;
+    } else {
+        stack[++top] = value;
+        cout << "\n[+] " << value << " pushed to stack.\n";
     }
 }
-void pop() {
-if (top == -1) {
-cout << "Stack Underflow\n";
-} else {
-cout << "Deleted element is: " << stack[top] << endl;
-top--;
+
+int pop() {
+    if (isEmpty()) {
+        cout << "\n[!] Stack Underflow! No elements to remove.\n";
+        return -1;
+    } else {
+        return stack[top--];
     }
 }
+
 void peek() {
-if (top == -1) {
-cout << "Stack is empty\n";
-} else {
-cout << "Top element is: " << stack[top] << endl;
-    }
-}
-void isEmpty() {
-if (top == -1) {
-cout << "Stack is empty\n";
-} else {
-cout << "Stack is not empty\n";
-}
-}
-void display() {
-if (top == -1) {
-cout << "Stack is empty\n";
-} else {
-cout << "Stack elements are:\n";
-for (int i = top; i >= 0; i--) {
-cout << stack[i] << endl;
-        }
+    if (isEmpty()) {
+        cout << "\nStack is empty.\n";
+    } else {
+        cout << "\nTop element is: " << stack[top] << endl;
     }
 }
 
 int main() {
-    int ch;
-while (1) {
-cout << "\n1.Push\n2.Pop\n3.Peek\n4.IsEmpty\n5.Display\n6.Exit\n";
-cout << "Enter choice: ";
-cin >> ch;
-if (ch == 1)
-push();
-else if (ch == 2)
-pop();
-else if (ch == 3)
-peek();
-else if (ch == 4)
-isEmpty();
-else if (ch == 5)
-display();
-else if (ch == 6)
-break;
-else
-cout << "Wrong choice\n";
-}
+    int choice, value;
+
+    cout << "Enter maximum size of the stack: ";
+    cin >> maxSize;
+
+    if (maxSize <= 0) {
+        cout << "Invalid size. Exiting...\n";
+        return 1;
+    }
+
+    stack = new int[maxSize];  
+
+    while (true) {
+        cout << "\n1. Push\n2. Pop\n3. Peek\n4. Check Empty/Full\n5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter value to push: ";
+                cin >> value;
+                push(value);
+                break;
+
+            case 2:
+                value = pop();
+                if (value != -1)
+                    cout << "Popped: " << value << endl;
+                break;
+
+            case 3:
+                peek();
+                break;
+
+            case 4:
+                if (isFull())
+                    cout << "Stack is Full.\n";
+                else if (isEmpty())
+                    cout << "Stack is Empty.\n";
+                else
+                    cout << "Stack has space available (" 
+                         << top + 1 << "/" << maxSize << " used).\n";
+                break;
+
+            case 5:
+                delete[] stack;   
+                cout << "Exiting...\n";
+                return 0;
+
+            default:
+                cout << "Invalid choice! Try again.\n";
+        }
+    }
 
     return 0;
 }
-
